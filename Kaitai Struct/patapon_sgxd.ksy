@@ -17,9 +17,9 @@ seq:
 types:
   header1:
     seq:
-    - id: size_sections
+    - id: size_sections # offset name
       type: u4
-    - id: size_header
+    - id: size_header # offset data
       type: u4
     - id: size_audio_raw
       type: u4
@@ -71,8 +71,44 @@ types:
   
   wave:
     seq:
-      - id: values
+      - id: unk1
+        type: u4
+      - id: num_files
+        type: u4
+      - id: unk2
+        type: u4
+      - id: name_offset
+        type: u4
+      - id: file_format
+        type: u1
+      - id: channels
+        type: u1
+      - id: unk3
         type: u2
+      - id: playback_frequency
+        type: u4
+      - id: bitrate
+        type: u4
+      - id: data_size
+        type: u4
+      - id: unk4
+        type: u4
+      - id: unk5
+        type: u4
+      - id: total_samples
+        type: u4
+      - id: loop_beg
+        type: u4
+      - id: loop_end
+        type: u4
+      - id: size_audio
+        type: u4
+      - id: unk6
+        type: u4
+      - id: sgd_data_size
+        type: u4
+      - id: unk7
+        type: u4
         repeat: eos
   
   name:
@@ -95,11 +131,11 @@ types:
   
   name_data:
     seq:
-      - id: unk1
+      - id: file_index
         type: u2
-      - id: unk2
+      - id: name_type
         type: u2
-      - id: unk3
+      - id: name_offset
         type: u2
       - id: unk4
         type: u2
