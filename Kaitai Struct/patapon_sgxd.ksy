@@ -11,9 +11,14 @@ seq:
   - id: header2
     type: header2
     size: header1.size_header - 16
-  - id: audio
-    size: header1.size_audio
-
+  #- id: audio
+  #  size: header1.size_audio
+instances:
+  audios:
+    type: audio(_index)
+    repeat: expr
+    repeat-expr: header2.sections[header2.sections[0].name == "RGND" ? 2 : 0].data.as<wave>.num_files
+  
 types:
   header1:
     seq:
@@ -149,3 +154,12 @@ types:
         type: u2
       - id: unk4 # padding?
         type: u2
+  
+  audio:
+    params:
+      - id: i
+        type: s4
+    seq:
+      - id: data
+        size: _parent.header2.sections[_parent.header2.sections[0].name == "RGND" ? 2 : 0].data.as<wave>.waves[i].size_audio
+    
