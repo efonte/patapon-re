@@ -25,13 +25,15 @@ types:
       type: u4
     instances:
       size_audio:
-        value: size_audio_raw - 0x80000000
+        value: size_audio_raw != 0 ? size_audio_raw - 0x80000000 : 0
       
   header2:
     seq:
       - id: sections
         type: section
         repeat: eos
+        #repeat: expr
+        #repeat-expr: 1
         
   section:
     seq:
@@ -68,14 +70,25 @@ types:
       - id: values
         type: u2
         repeat: eos
-  
+      #  repeat: expr
+      #  repeat-expr: 28
+      #- id: name
+      #  type: strz
+      #  encoding: shift-jis
   wave:
     seq:
       - id: unk1
         type: u4
       - id: num_files
         type: u4
-      - id: unk2
+      - id: waves
+        type: wave_data
+        repeat: expr
+        repeat-expr: num_files
+  
+  wave_data:
+    seq:
+      - id: unk1
         type: u4
       - id: name_offset
         type: u4
@@ -83,7 +96,7 @@ types:
         type: u1
       - id: channels
         type: u1
-      - id: unk3
+      - id: unk2
         type: u2
       - id: playback_frequency
         type: u4
@@ -91,9 +104,9 @@ types:
         type: u4
       - id: data_size
         type: u4
-      - id: unk4
+      - id: unk3
         type: u4
-      - id: unk5
+      - id: unk4
         type: u4
       - id: total_samples
         type: u4
@@ -107,10 +120,7 @@ types:
         type: u4
       - id: sgd_data_size
         type: u4
-      - id: unk7
-        type: u4
-        repeat: eos
-  
+      
   name:
     seq:
       - id: unk1
@@ -137,5 +147,5 @@ types:
         type: u2
       - id: name_offset
         type: u2
-      - id: unk4
+      - id: unk4 # padding?
         type: u2
