@@ -46,6 +46,7 @@ p2_usa_functions = """0884600C PSP::Gfx::PrimitiveContext::setVertex2f
 089211A4 Labo::Sound__BeatCommander__sendCommand
 089220F8 Sound__BeatCommander__endSubGame__4LaboFv
 089528F0 Labo::Bases__Camp__SoundGame__Trent__Game__updatePlay
+0895B1AC Labo::Bases__Camp__SelectItem__Behavior__UnitBirthParamTable__addBattleUnit
 08977700 Localize__Manager__getLanguageName
 0897CEBC Bases__Item__ExplanationWindow__setItemId
 0898BCDC Sound__SubGame__Blacksmith__Command__start__4LaboFv
@@ -67,12 +68,18 @@ for line in p2_usa_functions.splitlines():
     address = int(address, 16)
     functions[address] = func_name.replace("__", "::")
 
+# p2 usa - function names obtained based on ghidra decompiled code
+# TODO
+# p2_usa_functions = """FUN_089184d8=Labo::GameSystem::Item::Operator::subItem
+# """
+
+
 print(functions)
 print(len(functions))
 # exit()
 
 
-outfile = open("./ppsspp_p2_usa_732_(pac)_and_67_(lua)_func_names.sym", "w")
+outfile = open("./ppsspp_p2_usa_732_(pac)_and_68_(lua)_func_names.sym", "w")
 with open("./ppsspp_p2_usa_732_func_names.sym", "r") as infile:
     for line in infile.readlines():
         func, func_size = line.rstrip("\n").split(",")
