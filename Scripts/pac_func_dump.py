@@ -31,7 +31,7 @@ def get_func_name(infile) -> Dict[str, Tuple]:
     return func_names
 
 
-with open("RAMp2.dump", "rb") as infile:
+with open("RAMp2_usa.dump", "rb") as infile:
     infile.seek(0, os.SEEK_END)
     last_offset = infile.tell()
     infile.seek(0)
@@ -64,7 +64,7 @@ with open("RAMp2.dump", "rb") as infile:
     # print(len(func_list))
 
 
-with open("p2_eur_functions_dump.txt", "w", encoding="utf-8") as outfile:
+with open("p2_usa_functions_dump.txt", "w", encoding="utf-8") as outfile:
     category = 0
     for i, func_names in enumerate(func_list):
         if len(func_names) == 0:
