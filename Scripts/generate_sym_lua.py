@@ -19,12 +19,12 @@ for file_path in [
                     func_name = func_name[1:-1]
                 func_name = func_name.split("\t", maxsplit=1)[0].strip()
                 func_name = func_name.split(" ", maxsplit=1)[0].strip()
-                functions[int(m.group("address"), 16)] = func_name
+                functions[int(m.group("address"), 16)] = func_name.replace("__", "::")
             elif m := re.match(
                 r".*axFuncReplace\(0x(?P<address>.{7}), \"(?P<func_name>.+)\"(, 0x.{7})?\)",
                 line,
             ):
-                functions[int(m.group("address"), 16)] = "ps4__" + m.group("func_name")
+                functions[int(m.group("address"), 16)] = "ps4__" + m.group("func_name").replace("__","::")
 
 
 # p2 usa - addresses obtained manually thanks to owocek
@@ -65,7 +65,7 @@ p2_usa_functions = """0884600C PSP::Gfx::PrimitiveContext::setVertex2f
 for line in p2_usa_functions.splitlines():
     address, func_name = line.split(" ")
     address = int(address, 16)
-    functions[address] = func_name
+    functions[address] = func_name.replace("__", "::")
 
 print(functions)
 print(len(functions))
