@@ -24,7 +24,9 @@ for file_path in [
                 r".*axFuncReplace\(0x(?P<address>.{7}), \"(?P<func_name>.+)\"(, 0x.{7})?\)",
                 line,
             ):
-                functions[int(m.group("address"), 16)] = "ps4__" + m.group("func_name").replace("__","::")
+                functions[int(m.group("address"), 16)] = "ps4__" + m.group(
+                    "func_name"
+                ).replace("__", "::")
 
 
 # p2 usa - addresses obtained manually thanks to owocek
@@ -69,9 +71,18 @@ for line in p2_usa_functions.splitlines():
     functions[address] = func_name.replace("__", "::")
 
 # p2 usa - function names obtained based on ghidra decompiled code
-# TODO
-# p2_usa_functions = """FUN_089184d8=Labo::GameSystem::Item::Operator::subItem
-# """
+# thanks to owocek
+p2_usa_functions = """089184d8 Labo::GameSystem::Item::Operator::subItem
+08844504 Script::Talk::Controller::getStringFromPacArgument
+0884430C Script::Talk::Controller::debugPacLogger
+088440C0 Script::Talk::Controller::getAddressFromPacPointer
+0898C3F4 func_leading_to_vprintf
+088438C8 pack_seek
+08843B14 pack_seek_logger_flag"""
+for line in p2_usa_functions.splitlines():
+    address, func_name = line.split(" ")
+    address = int(address, 16)
+    functions[address] = "custom__" + func_name.replace("__", "::")
 
 
 print(functions)
@@ -79,7 +90,7 @@ print(len(functions))
 # exit()
 
 
-outfile = open("./ppsspp_p2_usa_732_(pac)_and_68_(lua)_func_names.sym", "w")
+outfile = open("./ppsspp_p2_usa_732_(pac)_68_(lua)_and_custom_func_names.sym", "w")
 with open("./ppsspp_p2_usa_732_func_names.sym", "r") as infile:
     for line in infile.readlines():
         func, func_size = line.rstrip("\n").split(",")
