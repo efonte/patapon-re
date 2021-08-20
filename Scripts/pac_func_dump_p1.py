@@ -12,7 +12,9 @@ def read_string(infile) -> str:
     return string.rstrip("\x00")
 
 
-with open("RAMp1.dump", "rb") as infile:
+# with open("RAMp1.dump", "rb") as infile:
+with open("RAMp3_UCJP00125.dump", "rb") as infile:
+# with open("RAMp3_UCJP00133.dump", "rb") as infile:
     infile.seek(0, os.SEEK_END)
     last_offset = infile.tell()
     infile.seek(0)
@@ -44,7 +46,9 @@ with open("RAMp1.dump", "rb") as infile:
     # print(len(func_list))
 
 
-with open("p1_eur_functions_dump.txt", "w", encoding="utf-8") as outfile:
+# with open("p1_eur_functions_dump.txt", "w", encoding="utf-8") as outfile:
+with open("p3_UCJP00125_functions_dump.txt", "w", encoding="utf-8") as outfile:
+# with open("p3_UCJP00133_functions_dump.txt", "w", encoding="utf-8") as outfile:
     category = 0
     for i, func_names in enumerate(func_list):
         if len(func_names) == 0:
