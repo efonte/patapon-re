@@ -2,7 +2,8 @@ functions = {}
 # with open("./[P3][EUR] - PAC Instruction Dump new.txt", "r") as infile:
 # with open("./p2_eur_functions_dump.txt", "r") as infile:
 # with open("./p1_eur_functions_dump.txt", "r") as infile:
-with open("./p2_usa_functions_dump.txt", "r") as infile:
+# with open("./p2_usa_functions_dump.txt", "r") as infile:
+with open("./[P1][UCUS98711] - PAC Instruction Dump.txt", "r") as infile:
     for line in infile.readlines():
         _, _, func_address, func_name = line.rstrip("\n").split(", ")
         func_address = int(func_address[2:], 16)
@@ -15,11 +16,13 @@ with open("./p2_usa_functions_dump.txt", "r") as infile:
 # outfile = open("./ppsspp_p3_eur_913_func_names.sym", "w")
 # outfile = open("./ppsspp_p2_eur_732_func_names.sym", "w")
 # outfile = open("./ppsspp_p1_eur_566_func_names.sym", "w")
-outfile = open("./ppsspp_p2_usa_732_func_names.sym", "w")
+# outfile = open("./ppsspp_p2_usa_732_func_names.sym", "w")
+outfile = open("./ppsspp_p1_UCUS98711_566_func_names.sym", "w")
 # with open("./p3_eur.sym", "r") as infile:
 # with open("./p2_eur.sym", "r") as infile:
 # with open("./p1_eur.sym", "r") as infile:
-with open("./p2_usa.sym", "r") as infile:
+# with open("./p2_usa.sym", "r") as infile:
+with open("./p1_UCUS98711.sym", "r") as infile:
     for line in infile.readlines():
         func, func_size = line.rstrip("\n").split(",")
         func_size = int(func_size, 16)
@@ -30,8 +33,8 @@ with open("./p2_usa.sym", "r") as infile:
             func_name = functions[func_address]
             functions.pop(func_address)
         except KeyError:
-            continue
-            # pass
+            # continue
+            pass
         outfile.write(f"{func_address:08X} {func_name},{func_size:04X}\n")
 
 for func_address, func_name in functions.items():

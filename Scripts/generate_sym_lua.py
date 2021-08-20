@@ -29,7 +29,7 @@ for file_path in [
                 ).replace("__", "::")
 
 
-# p2 usa - addresses obtained manually thanks to owocek
+# p2 usa - addresses obtained manually, thanks to owocek
 p2_usa_functions = """0884600C PSP::Gfx::PrimitiveContext::setVertex2f
 088687B4 Labo::GameSystem__callbackFunc_MemoryObject
 08877104 convertLowerString__21@unnamed@BNDFile_cpp@Fv
@@ -70,8 +70,7 @@ for line in p2_usa_functions.splitlines():
     address = int(address, 16)
     functions[address] = func_name.replace("__", "::")
 
-# p2 usa - function names obtained based on ghidra decompiled code
-# thanks to owocek
+# p2 usa - function names obtained based on ghidra decompiled code, thanks to owocek
 p2_usa_custom_functions = """0883E498 retrieveApplicationAddress
 088438C8 packSeek
 08843B14 packSeekLoggerFlag
@@ -89,8 +88,7 @@ p2_usa_custom_functions = """0883E498 retrieveApplicationAddress
 088F4EE0 playSoundEffect
 088F5034 stopSoundEffect
 089184d8 Labo::GameSystem::Item::Operator::subItem
-0898C3F4 funcLeadingToVprintf
-"""
+0898C3F4 funcLeadingToVprintf"""
 for line in p2_usa_custom_functions.splitlines():
     address, func_name = line.split(" ")
     address = int(address, 16)
