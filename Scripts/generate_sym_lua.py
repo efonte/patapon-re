@@ -72,23 +72,25 @@ for line in p2_usa_functions.splitlines():
 
 # p2 usa - function names obtained based on ghidra decompiled code
 # thanks to owocek
-p2_usa_custom_functions = """089184d8 Labo::GameSystem::Item::Operator::subItem
-08844504 Script::Talk::Controller::getStringFromPacArgument
-0884430C Script::Talk::Controller::debugPacLogger
+p2_usa_custom_functions = """0883E498 retrieveApplicationAddress
+088438C8 packSeek
+08843B14 packSeekLoggerFlag
 088440C0 Script::Talk::Controller::getAddressFromPacPointer
-0898C3F4 func_leading_to_vprintf
-088438C8 pack_seek
-08843B14 pack_seek_logger_flag
-0889BB90 setFogState
-0889B818 setRainState
-0889BD04 setSandState
-0889BA1C setSnowState
-0889BFFC setThunderState
+0884430C Script::Talk::Controller::debugPacLogger
+08844504 Script::Talk::Controller::getStringFromPacArgument
 0889B4B0 setWindState
+0889B818 setRainState
+0889BA1C setSnowState
+0889BB90 setFogState
+0889BD04 setSandState
 0889BE88 setCloudState
-088F5034 stopSoundEffect
+0889BFFC setThunderState
+088F4ED8 set_v0_to_0x20
 088F4EE0 playSoundEffect
-088F4ED8 set_v0_to_0x20"""
+088F5034 stopSoundEffect
+089184d8 Labo::GameSystem::Item::Operator::subItem
+0898C3F4 funcLeadingToVprintf
+"""
 for line in p2_usa_custom_functions.splitlines():
     address, func_name = line.split(" ")
     address = int(address, 16)
