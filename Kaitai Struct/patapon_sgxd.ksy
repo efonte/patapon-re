@@ -18,7 +18,7 @@ instances:
     type: audio(_index)
     repeat: expr
     repeat-expr: header2.sections[header2.sections[0].name == "RGND" ? 2 : 0].data.as<wave>.num_files
-  
+
 types:
   header1:
     seq:
@@ -31,7 +31,7 @@ types:
     instances:
       size_audio:
         value: size_audio_raw != 0 ? size_audio_raw - 0x80000000 : 0
-      
+
   header2:
     seq:
       - id: sections
@@ -39,7 +39,7 @@ types:
         repeat: eos
         #repeat: expr
         #repeat-expr: 1
-        
+
   section:
     seq:
       - id: name
@@ -58,7 +58,7 @@ types:
             '"NAME"': name
             _: unk_section
         size: size
-      
+
   unk_section:
     seq:
       - id: data
@@ -69,7 +69,7 @@ types:
       - id: values
         type: u2
         repeat: eos
-  
+
   seqd:
     seq:
       - id: values
@@ -90,7 +90,7 @@ types:
         type: wave_data
         repeat: expr
         repeat-expr: num_files
-  
+
   wave_data:
     seq:
       - id: unk1
@@ -125,7 +125,7 @@ types:
         type: u4
       - id: sgd_data_size
         type: u4
-      
+
   name:
     seq:
       - id: unk1
@@ -143,7 +143,7 @@ types:
         repeat-expr: num_names
       - id: padding
         size-eos: true
-  
+
   name_data:
     seq:
       - id: file_index
@@ -154,7 +154,7 @@ types:
         type: u2
       - id: unk4 # padding?
         type: u2
-  
+
   audio:
     params:
       - id: i
@@ -162,4 +162,4 @@ types:
     seq:
       - id: data
         size: _parent.header2.sections[_parent.header2.sections[0].name == "RGND" ? 2 : 0].data.as<wave>.waves[i].size_audio
-    
+

@@ -10,19 +10,19 @@ seq:
     type: entry
     repeat: expr
     repeat-expr: header.num_entries
- 
+
 types:
   header:
     seq:
       - id: magic
-        contents: ['PAKF']
+        contents: ["PAKF"]
       - id: padding1
         size: 4
       - id: num_entries
         type: u4
       - id: padding2
         size: 4
-      
+
   entry:
     seq:
       - id: name
@@ -37,6 +37,3 @@ types:
         type: u4
       - id: size_pixels
         type: u4
-
-
-

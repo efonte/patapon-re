@@ -10,7 +10,7 @@ seq:
   #  type: asd
     #pos: header.offset_info
     #repeat: until
-    #repeat-until: 
+    #repeat-until:
     #repeat: expr
     #repeat-expr: 4
   #- id: names
@@ -28,7 +28,7 @@ seq:
   #  type: u4
   #- id: unk2
   #  type: u4
-    
+
 
 types:
   header:
@@ -65,7 +65,7 @@ types:
       data:
         pos: offset_info
         type: data1
-          
+
   data1:
     seq:
       - id: folder_level
@@ -92,7 +92,7 @@ types:
       #  type: rgb
       #  repeat: expr
       #  repeat-expr: 256
-      
+
   data2:
     seq:
       - id: crc
@@ -110,7 +110,7 @@ types:
       #name1:
       #  value: 2
       #  if: _parent.folder_level < 0
-        
+
   rgb:
     seq:
       - id: red
@@ -120,7 +120,7 @@ types:
       - id: blue
         type: u1
     -webide-representation: "rgb({red:dec}, {green:dec}, {blue:dec})"
-    
+
   file:
     seq:
       - id: name
@@ -156,7 +156,7 @@ types:
         0x0: file
         0x1: directory
         0xFF: directory_end
-        
+
     instances:
       files:
         #io: _root._io
@@ -167,7 +167,7 @@ types:
         repeat-until: _.type == file_type::directory_end
         if: type == file_type::directory
         #if: type == file_type::directory and type != file_type::directory_end
-        
+
     #    #size: offset - _io.pos
     #    #repeat: eos
     #    repeat: expr
@@ -185,4 +185,4 @@ types:
         #io: _root._io
         pos: offset
         size: size
-        if: type == file_type::file 
+        if: type == file_type::file

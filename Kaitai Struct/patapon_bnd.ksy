@@ -7,7 +7,7 @@ seq:
   - id: header
     type: header
   - id: padding1
-    size:  (header.num_entries - entries.size) * 16
+    size: (header.num_entries - entries.size) * 16
   #- id: padding2
   #  size: header.file_offset - _io.pos
 instances:
@@ -21,7 +21,7 @@ types:
   header:
     seq:
       - id: magic
-        contents: ['BND', 0]
+        contents: ["BND", 0]
       - id: version
         type: u4
       - id: unk1
@@ -68,5 +68,3 @@ types:
       file_data:
         pos: file_offset
         size: file_size
- 
-

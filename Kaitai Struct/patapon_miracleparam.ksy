@@ -11,7 +11,7 @@ types:
   header:
     seq:
       - id: magic
-        contents: ['YGF_GFP', 0]
+        contents: ["YGF_GFP", 0]
       - id: unk1 # size header or offset baseparam
         type: s4
       - id: unk2
@@ -65,4 +65,3 @@ types:
         encoding: shift-jis
         size: 0x20
         if: _parent.param_size == 0x68
-  
