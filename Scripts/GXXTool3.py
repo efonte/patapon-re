@@ -609,11 +609,11 @@ for i in range(blocks):
                     if color_type == "BGR 565":
                         color = read_u16(gxx, offset)
                         offset += 0x04
-                        vertex_string += f"argb:0x{color:x} "
+                        vertex_string += f"bgr:0x{color:x} "
                     elif color_type == "ABGR 8888":
                         color = read_u32(gxx, offset)
                         offset += 0x04
-                        vertex_string += f"argb:0x{color:x} "
+                        vertex_string += f"abgr:0x{color:x} "
 
                     if position_type == "float":
                         x = read_f32(gxx, offset)
