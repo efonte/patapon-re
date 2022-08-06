@@ -56,7 +56,7 @@ types:
             0x8061: chunk_8061_set_material
             0x8062: chunk_8062_blend_subset
             0x8066: chunk_8066_draw_arrays
-            0x8082: chunk_8082_material
+            0x8082: chunk_8082_material_diffuse
             0x8083: chunk_8083_material_specular
             0x8085: chunk_8085_material_ambient
             0x8091: chunk_8091_material_layer
@@ -216,6 +216,7 @@ types:
         size: _parent.size_header - 8 - 8
       - id: fcurve_type
         type: u4
+        enum: fcurve_type
       - id: fcurve_value1
         type: u4
       - id: fcurve_value2
@@ -223,9 +224,17 @@ types:
       - id: fcurve_value3
         type: u4
       - id: values
-        type: f4
-        repeat: expr
-        repeat-expr: (_parent.size - _parent.size_header - 4 * 4) / 4
+        #type: f4
+        #repeat: expr
+        #repeat-expr: (_parent.size - _parent.size_header - 4 * 4) / 4
+        type: u2
+        repeat: eos
+    enums:
+      fcurve_type:
+        0x80: constant
+        0x81: linear
+        0x82: hermite
+        0x84: spherical
 
   chunk_000f_blind_block:
     seq:
@@ -400,37 +409,76 @@ types:
         0x3: triangles
         0x4: triangle_strip
 
-  chunk_8082_material:
+  chunk_8082_material_diffuse:
     seq:
       - id: header
         size: _parent.size_header - 8
         if: _parent.size_header != 0
-      - id: value1
+      - id: value1_raw
         type: u1
-      - id: value2
+      - id: value2_raw
         type: u1
-      - id: value3
+      - id: value3_raw
         type: u1
-      - id: value4
+      - id: value4_raw
         type: u1
+    instances:
+      value1:
+        value: (value1_raw / 255.0)
+      value2:
+        value: (value2_raw / 255.0)
+      value3:
+        value: (value3_raw / 255.0)
+      value4:
+        value: (value4_raw / 255.0)
 
   chunk_8083_material_specular:
     seq:
       - id: header
         size: _parent.size_header - 8
         if: _parent.size_header != 0
-      - id: values
+      - id: value1_raw
+        type: u1
+      - id: value2_raw
+        type: u1
+      - id: value3_raw
+        type: u1
+      - id: value4_raw
+        type: u1
+      - id: value5
         type: f4
-        repeat: eos
+    instances:
+      value1:
+        value: (value1_raw / 255.0)
+      value2:
+        value: (value2_raw / 255.0)
+      value3:
+        value: (value3_raw / 255.0)
+      value4:
+        value: (value4_raw / 255.0)
 
   chunk_8085_material_ambient:
     seq:
       - id: header
         size: _parent.size_header - 8
         if: _parent.size_header != 0
-      - id: values
-        type: f4
-        repeat: eos
+      - id: value1_raw
+        type: u1
+      - id: value2_raw
+        type: u1
+      - id: value3_raw
+        type: u1
+      - id: value4_raw
+        type: u1
+    instances:
+      value1:
+        value: (value1_raw / 255.0)
+      value2:
+        value: (value2_raw / 255.0)
+      value3:
+        value: (value3_raw / 255.0)
+      value4:
+        value: (value4_raw / 255.0)
 
   chunk_8091_material_layer:
     seq:
