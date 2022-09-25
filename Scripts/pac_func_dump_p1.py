@@ -1,7 +1,6 @@
 import os
-from pathlib import Path
 from struct import unpack
-from typing import Dict, List, Tuple
+
 from rich import print
 
 
@@ -60,7 +59,7 @@ with open("p3_UCJP00135_functions_dump.txt", "w", encoding="utf-8") as outfile:
         id_count = 0
         outfile.write(f"unk{category}, unk{id_count}, 0x0, null\n")
         for func_name, (id, offset) in func_names.items():
-            id_count+=1
+            id_count += 1
             # outfile.write(f"{category:02X};{id:04X};{offset:08X};{func_name}\n")
             # outfile.write(f"0x{category:02x}, 0x{id:04x}, 0x{offset:x}, {func_name}\n")
             # outfile.write(f"unk{category}, 0x{id:04x}, 0x{offset:x}, {func_name}\n")

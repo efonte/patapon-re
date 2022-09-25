@@ -1,4 +1,5 @@
 import re
+
 from rich import print
 
 functions = {}
@@ -6,6 +7,9 @@ for file_path in [
     "./UCUS98732_features.lua",
     "./UCUS98732_patches.lua",
     "./UCUS98732_trophies.lua",
+    # "UCES01177_features.lua",
+    # "UCES01177_patches.lua",
+    # "UCES01177_trophies.lua",
 ]:
     with open(file_path, "r", encoding="utf-8") as infile:
         for line in infile.readlines():
@@ -30,45 +34,105 @@ for file_path in [
 
 
 # p2 usa - addresses obtained manually, thanks to owocek
-p2_usa_functions = """0884600C PSP::Gfx::PrimitiveContext::setVertex2f
-088687B4 Labo::GameSystem__callbackFunc_MemoryObject
-08877104 convertLowerString__21@unnamed@BNDFile_cpp@Fv
-08877304 System::Util__BNDFile__doNameCallback
-088A95B8 reawakeDeathUnit
+p2_usa_functions = """08828A00 sgxResFindSeq
+0884600C PSP::Gfx::PrimitiveContext::setVertex2f
+088687B4 Labo::GameSystem::callbackFunc_MemoryObject
+08877104 convertLowerString::21@unnamed@BNDFile_cpp@Fv
+08877304 System::Util::BNDFile::doNameCallback
+088A95B8 Labo::Bases::Camp::Controller::reawakeDeathUnit
 088B9044 Labo::Game::Talk::CommandGame::setStringVariable
-088D5894 Labo::Bases__Talk__CommandCamp__setMissionNameFromVar
-088D8ED0 Bases__Talk__CommandCamp__showDialog
-088DC4DC Bases__Camp__Person__Behavior__Idle__update__4LaboFv
-088E7E30 Utility__SaveDataUtility__setDataParamsfoString
-088E94FC Labo::Bases__Camp__Scene__updateTips
-088EF8E8 Labo::Game__Result__Controller__applyGlobalData
-08901B84 Labo::Talk__CommandEffect__generateCapEffect
-0890E984 Labo::Game__Gimmick__WindowAttacher__update
-089183FC Labo::GameSystem__Item__Operator__addItem
-089211A4 Labo::Sound__BeatCommander__sendCommand
-089220F8 Sound__BeatCommander__endSubGame__4LaboFv
-089528F0 Labo::Bases__Camp__SoundGame__Trent__Game__updatePlay
-0895B1AC Labo::Bases__Camp__SelectItem__Behavior__UnitBirthParamTable__addBattleUnit
-08977700 Localize__Manager__getLanguageName
-0897CEBC Bases__Item__ExplanationWindow__setItemId
-0898BCDC Sound__SubGame__Blacksmith__Command__start__4LaboFv
-0898EBF8 Labo::Bases__Camp__SoundGame__Bean__Game__updatePlayShineup
-089910F0 Labo::Bases__Camp__SoundGame__Blacksmith__Game__notifyResult
-08996024 Labo::Bases__Camp__SoundGame__Cook__Game__updatePlay
-08998774 Labo::Bases__Camp__SoundGame__Rock__Game__updateDropTears
-0899CF0C GameSystem__SaveDataController__update__4LaboFv
-0899E458 GameSystem__SaveDataController__setStateMessage
-08A03344 Labo::Bases__Camp__SoundGame__Alchemy__Game__requestEndGame
-08A04A6C Labo::Bases__Camp__SoundGame__Bell__Game__selectAxel
-08A15BBC Labo::Bases__Camp__EvolutionMap__PhyleticIcon__execLevelUpEffectWait
-08A19E80 Labo::Game__Result__Single__Controller__updateMessage
-08A39440 Bases__Organization__Managed__ItemSelectWindow__onSlotChange
-08A6A1BC Labo::GameSystem__MovieModule__render
-08A734DC GameSystem__Tips__Viewer__setup__4LaboFv"""
+088BF34C Labo::Talk::CommandMessage::getPadStand
+088D5894 Labo::Bases::Talk::CommandCamp::setMissionNameFromVar
+088D8ED0 Bases::Talk::CommandCamp::showDialog
+088DC4DC Bases::Camp::Person::Behavior::Idle::update::4LaboFv
+088E7E30 Utility::SaveDataUtility::setDataParamsfoString
+088E94FC Labo::Bases::Camp::Scene::updateTips
+088EF8E8 Labo::Game::Result::Controller::applyGlobalData
+08901B84 Labo::Talk::CommandEffect::generateCapEffect
+0890E984 Labo::Game::Gimmick::WindowAttacher::update
+089183FC Labo::GameSystem::Item::Operator::addItem
+089211A4 Labo::Sound::BeatCommander::sendCommand
+089220F8 Sound::BeatCommander::endSubGame::4LaboFv
+089528F0 Labo::Bases::Camp::SoundGame::Trent::Game::updatePlay
+0895B1AC Labo::Bases::Camp::SelectItem::Behavior::UnitBirthParamTable::addBattleUnit
+08977700 Localize::Manager::getLanguageName
+089778E0 Font::Localize::getStringFromIndex
+0897CEBC Bases::Item::ExplanationWindow::setItemId
+0898BCDC Sound::SubGame::Blacksmith::Command::start::4LaboFv
+0898EBF8 Labo::Bases::Camp::SoundGame::Bean::Game::updatePlayShineup
+089910F0 Labo::Bases::Camp::SoundGame::Blacksmith::Game::notifyResult
+08996024 Labo::Bases::Camp::SoundGame::Cook::Game::updatePlay
+08998774 Labo::Bases::Camp::SoundGame::Rock::Game::updateDropTears
+0899CF0C GameSystem::SaveDataController::update::4LaboFv
+0899E458 GameSystem::SaveDataController::setStateMessage
+08A03344 Labo::Bases::Camp::SoundGame::Alchemy::Game::requestEndGame
+08A04A6C Labo::Bases::Camp::SoundGame::Bell::Game::selectAxel
+08A15BBC Labo::Bases::Camp::EvolutionMap::PhyleticIcon::execLevelUpEffectWait
+08A19E80 Labo::Game::Result::Single::Controller::updateMessage
+08A2215C Bases::Organization::Managed::OrganizationManager::initSquadParam
+08A39440 Bases::Organization::Managed::ItemSelectWindow::onSlotChange
+08A6A1BC Labo::GameSystem::MovieModule::render
+08A734DC GameSystem::Tips::Viewer::setup::4LaboFv"""
 for line in p2_usa_functions.splitlines():
     address, func_name = line.split(" ")
     address = int(address, 16)
     functions[address] = func_name.replace("__", "::")
+
+
+p2_eur_functions = """08828A00 sgxResFindSeq
+0884600C PSP::Gfx::PrimitiveContext::setVertex2f
+088687D0 Labo::GameSystem::callbackFunc_MemoryObject
+08877120 convertLowerString::21@unnamed@BNDFile_cpp@Fv
+08877320 System::Util::BNDFile::doNameCallback
+088A95B4 Labo::Bases::Camp::Controller::reawakeDeathUnit
+088B9040 Labo::Game::Talk::CommandGame::setStringVariable
+088BF348 Labo::Talk::CommandMessage::getPadStand
+088D5890 Labo::Bases::Talk::CommandCamp::setMissionNameFromVar
+088D8ECC Bases::Talk::CommandCamp::showDialog
+088DC4D8 Bases::Camp::Person::Behavior::Idle::update::4LaboFv
+088E7E2C Utility::SaveDataUtility::setDataParamsfoString
+088E94F8 Labo::Bases::Camp::Scene::updateTips
+088EF998 Labo::Game::Result::Controller::applyGlobalData
+08901C34 Labo::Talk::CommandEffect::generateCapEffect
+0890EA34 Labo::Game::Gimmick::WindowAttacher::update
+089119FC PSP::MoviePlayer::play
+089148F4 MainGame::Mission::MissionScene::initialize::4LaboFv
+089184AC Labo::GameSystem::Item::Operator::addItem
+08921254 Labo::Sound::BeatCommander::sendCommand
+089221A8 Sound::BeatCommander::endSubGame::4LaboFv
+089529A0 Labo::Bases::Camp::SoundGame::Trent::Game::updatePlay
+0895B25C Labo::Bases::Camp::SelectItem::Behavior::UnitBirthParamTable::addBattleUnit
+089778E8 Localize::Manager::getLanguageName
+08977B60 Font::Localize::getStringFromIndex
+0897BA58 Labo::Game::Miracle::Quake::start
+0897BBBC Labo::Game::Miracle::Storm::start
+0897BE20 Labo::Game::Miracle::Wind::start
+0897C004 Labo::Game::Miracle::Rain::start
+0897D13C Bases::Item::ExplanationWindow::setItemId
+08982838 Labo::Game::Map::ThunderLayer::generateThunder
+0898BF5C Sound::SubGame::Blacksmith::Command::start::4LaboFv
+0898EE78 Labo::Bases::Camp::SoundGame::Bean::Game::updatePlayShineup
+08991370 Labo::Bases::Camp::SoundGame::Blacksmith::Game::notifyResult
+089962A4 Labo::Bases::Camp::SoundGame::Cook::Game::updatePlay
+089989F4 Labo::Bases::Camp::SoundGame::Rock::Game::updateDropTears
+0899D18C GameSystem::SaveDataController::update::4LaboFv
+0899E6D8 GameSystem::SaveDataController::setStateMessage
+08A035C4 Labo::Bases::Camp::SoundGame::Alchemy::Game::requestEndGame
+08A04CEC Labo::Bases::Camp::SoundGame::Bell::Game::selectAxel
+08A0653C Labo::Game::Miracle::SnowStorm::start
+08A0B50C Labo::Game::Miracle::Offense::start
+08A0B648 Labo::Game::Miracle::Defense::start
+08A15E3C Labo::Bases::Camp::EvolutionMap::PhyleticIcon::execLevelUpEffectWait
+08A1A100 Labo::Game::Result::Single::Controller::updateMessage
+08A223DC Bases::Organization::Managed::OrganizationManager::initSquadParam
+08A396C0 Bases::Organization::Managed::ItemSelectWindow::onSlotChange
+08A6A574 Labo::GameSystem::MovieModule::render
+08A73894 GameSystem::Tips::Viewer::setup::4LaboFv"""
+# for line in p2_eur_functions.splitlines():
+#     address, func_name = line.split(" ")
+#     address = int(address, 16)
+#     functions[address] = func_name.replace("__", "::")
+
 
 # p2 usa - function names obtained based on ghidra decompiled code, thanks to owocek
 p2_usa_custom_functions = """0883E498 retrieveApplicationAddress
@@ -100,8 +164,10 @@ print(len(functions))
 # exit()
 
 
-outfile = open("./ppsspp_p2_usa_732_(pac)_68_(lua)_and_custom_func_names.sym", "w")
+outfile = open("./ppsspp_p2_usa_732_(pac)_72_(lua)_and_custom_func_names.sym", "w")
 with open("./ppsspp_p2_usa_732_func_names.sym", "r") as infile:
+    # outfile = open("./ppsspp_p2_eur_732_(pac)_73_(lua).sym", "w")
+    # with open("./ppsspp_p2_eur_732_func_names.sym", "r") as infile:
     for line in infile.readlines():
         func, func_size = line.rstrip("\n").split(",")
         func_size = int(func_size, 16)

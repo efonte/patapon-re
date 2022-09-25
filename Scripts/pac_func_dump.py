@@ -1,7 +1,7 @@
 import os
-from pathlib import Path
 from struct import unpack
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
+
 from rich import print
 
 
@@ -31,6 +31,7 @@ def get_func_name(infile) -> Dict[str, Tuple]:
     return func_names
 
 
+# with open("RAMp2_usa_game_sharing.dump", "rb") as infile:
 with open("RAMp2_usa.dump", "rb") as infile:
     infile.seek(0, os.SEEK_END)
     last_offset = infile.tell()
